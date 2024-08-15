@@ -1,15 +1,21 @@
 "use client";
+import useCartStore from "@/store/cart";
 import { MockProductType } from "@/types/ProductType";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import Button from "./Button";
 import CardPrice from "./CardPrice";
 
 const Card = (props: { product: MockProductType }) => {
   const product = props.product;
+
+  const { addItemToCart } = useCartStore();
+
   function handleAddToCart(
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ): void {
-    throw new Error("Function not implemented.");
+    addItemToCart(product);
+    toast.success("Added to cart");
   }
 
   return (
