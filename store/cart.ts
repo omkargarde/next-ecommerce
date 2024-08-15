@@ -8,6 +8,7 @@ type CartState = {
   addItemToCart: (item: MockProductType) => void;
   increaseQuantity: (productId: number) => void;
   decreaseQuantity: (productId: number) => void;
+  removeItemFromCart: (productId: number) => void;
 };
 
 const useCartStore = create<CartState>()((set, get) => ({
@@ -50,6 +51,19 @@ const useCartStore = create<CartState>()((set, get) => ({
         itemExists.quantity--;
         set({ cartItems: [...get().cartItems] });
       }
+    }
+  },
+
+  removeItemFromCart: (productId) => {
+    const itemExists = get().cartItems.find(
+      (cartItem) => cartItem.id === productId,
+    );
+
+    if (itemExists) {
+      const updatedCartItems = get().cartItems.filter(
+        (item) => item.id !== productId,
+      );
+      set({ cartItems: updatedCartItems });
     }
   },
 }));
