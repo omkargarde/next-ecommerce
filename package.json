@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -36,5 +36,6 @@
     "typescript": "^5",
     "vercel": "^36.0.0",
     "wrangler": "^3.71.0"
-  }
+  },
+  "packageManager": "pnpm@9.7.1+sha1.b0ae55d11432e1af341998848fdc219a62f7623a"
 }
