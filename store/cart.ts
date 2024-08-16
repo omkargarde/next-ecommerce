@@ -1,11 +1,13 @@
 // @ts-nocheck
 import { CartProductType, MockProductType } from "@/types/ProductType";
+import { totalmem } from "os";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type CartState = {
   // state
   cartItems: CartProductType[];
+  totalCartQuantity: number;
   // actions
   addItemToCart: (item: MockProductType) => void;
   increaseQuantity: (productId: number) => void;
@@ -16,7 +18,7 @@ const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       cartItems: [],
-
+      totalCartQuantity: 0,
       addItemToCart: (item) => {
         const itemExists = get().cartItems.find(
           (cartItem) => cartItem.id === item.id,
@@ -27,6 +29,7 @@ const useCartStore = create<CartState>()(
         } else {
           set({ cartItems: [...get().cartItems, { ...item, quantity: 1 }] });
         }
+        set((state) => ({ totalCartQuantity: state.totalCartQuantity + 1 }));
       },
 
       increaseQuantity: (productId) => {
@@ -37,6 +40,9 @@ const useCartStore = create<CartState>()(
         if (itemExists) {
           itemExists.quantity++;
           set({ cartItems: [...get().cartItems] });
+          set((state) => ({
+            totalCartQuantity: state.totalCartQuantity + 1,
+          }));
         }
       },
 
@@ -54,6 +60,10 @@ const useCartStore = create<CartState>()(
             itemExists.quantity--;
             set({ cartItems: [...get().cartItems] });
           }
+
+          set((state) => ({
+            totalCartQuantity: state.totalCartQuantity - 1,
+          }));
         }
       },
 
@@ -66,6 +76,9 @@ const useCartStore = create<CartState>()(
             (item) => item.id !== productId,
           );
           set({ cartItems: updatedCartItems });
+          set((state) => ({
+            totalCartQuantity: state.totalCartQuantity - 1,
+          }));
         }
       },
     }),

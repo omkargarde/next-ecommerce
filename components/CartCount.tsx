@@ -1,13 +1,17 @@
 "use client";
 import useCartStore from "@/store/cart";
+import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 
 const CartCount = () => {
-  const { cartItems } = useCartStore();
+  const { totalCartQuantity } = useCartStore();
 
   return (
-    <Link className="px-2 font-semibold" href="/cart">
-      cart ({cartItems.length})
+    <Link
+      className="flex items-center justify-center px-2 align-middle font-semibold"
+      href="/cart"
+    >
+      <ShoppingCart /> <p className="pl-1">({totalCartQuantity})</p>
     </Link>
   );
 };

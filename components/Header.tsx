@@ -10,7 +10,7 @@ const Header = () => {
           <Bolt />
           <p className="px-2 font-mono text-xl font-semibold">Next Ecommerce</p>
         </Link>
-        <nav>
+        <nav className="">
           <CartCount />
         </nav>
       </div>
