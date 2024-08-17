@@ -4,6 +4,7 @@ import { MockProductType } from "@/types/ProductType";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Button from "./Button";
 import CardPrice from "./CardPrice";

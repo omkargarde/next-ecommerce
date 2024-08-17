@@ -1,5 +1,7 @@
 import { MockProductType } from "@/types/ProductType";
 
+export const couponCode:string = "10KaDum"
+
 export const mock_products: MockProductType[] = [
   {
     id: 97284,

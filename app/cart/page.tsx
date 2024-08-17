@@ -1,18 +1,40 @@
 "use client";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import { couponCode } from "@/mock/products";
 import useCartStore from "@/store/cart";
+import { FormatMoney } from "@/utils/FormatMoney";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const CartPage = () => {
-  const { cartItems } = useCartStore();
+  const { cartItems, totalCartQuantity } = useCartStore();
+  const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
+    let totalPrice = 0;
     cartItems.forEach((item) => {
-      // item.
+      let price = 0;
+
+      if (!!item.discountPrice) {
+        price = item.price - item.price * (item.discountPrice / 100);
+      } else {
+        price = item.price;
+      }
+      totalPrice += price * item.quantity;
     });
+    setCartTotal(totalPrice);
   }, [cartItems]);
+
+  function handleCoupon(formData: any) {
+    const data = formData.get("coupon");
+    if (data === couponCode) {
+      setCartTotal(cartTotal - cartTotal * (10 / 100));
+    } else {
+      toast.error("Coupon invalid");
+    }
+  }
 
   if (cartItems && cartItems.length < 1) {
     return (
@@ -31,8 +53,31 @@ const CartPage = () => {
         {cartItems?.map((item) => <Card key={item.id} product={item} />)}
       </div>
 
-      <div className="mt-6 w-72 flex-none rounded-md p-4 text-center shadow-lg md:sticky md:top-4">
-        total items in cart {cartItems.length}
+      <div className="mt-6 w-80 flex-none rounded-md p-4 text-start shadow-lg md:sticky md:top-4">
+        <p>number items in cart is {totalCartQuantity}</p>
+        <p>your total is {FormatMoney(cartTotal)}</p>
+        <p>
+          <form className="w-full max-w-sm" action={handleCoupon}>
+            <div className="flex items-center border-b border-teal-500 py-2">
+              <input
+                className="mr-3 w-full appearance-none border-none bg-transparent px-2 py-1 leading-tight text-gray-700 focus:outline-none"
+                type="text"
+                placeholder="Enter your coupon code"
+                aria-label="Full name"
+                name="coupon"
+              />
+              <button className="hover:bg-blue-70 rounded-full bg-blue-500 px-4 py-2 font-bold text-white">
+                apply
+              </button>
+            </div>
+          </form>
+        </p>
+        <p className="pt-2">
+          <Link href="/checkout">
+            <Button>Checkout</Button>
+            <p>coupon code is 10KaDum</p>
+          </Link>
+        </p>
       </div>
     </div>
   );
