@@ -75,10 +75,10 @@ const useCartStore = create<CartState>()(
           const updatedCartItems = get().cartItems.filter(
             (item) => item.id !== productId,
           );
-          set({ cartItems: updatedCartItems });
           set((state) => ({
-            totalCartQuantity: state.totalCartQuantity - 1,
+            totalCartQuantity: state.totalCartQuantity - itemExists.quantity,
           }));
+          set({ cartItems: updatedCartItems });
         }
       },
     }),
