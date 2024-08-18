@@ -1,6 +1,6 @@
 import { MockProductType } from "@/types/ProductType";
 
-export const couponCode:string = "10KaDum"
+export const couponCode: string = "10off";
 
 export const mock_products: MockProductType[] = [
   {
