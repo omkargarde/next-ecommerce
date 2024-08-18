@@ -8,10 +8,10 @@ const CartCount = () => {
 
   return (
     <Link
-      className="flex items-center justify-center px-2 align-middle text-2xl font-semibold md:text-xl"
+      className="flex items-center justify-center px-2 align-middle text-3xl font-semibold md:text-2xl"
       href="/cart"
     >
-      <ShoppingCart /> <p className="pl-1">({totalCartQuantity})</p>
+      <ShoppingCart size={30} /> <p className="pl-1">({totalCartQuantity})</p>
     </Link>
   );
 };

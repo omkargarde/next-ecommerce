@@ -1,4 +1,5 @@
 import { Bolt } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import CartCount from "./CartCount";
 
@@ -10,7 +11,7 @@ const Header = () => {
           href="/"
           className="flex items-center justify-center align-middle"
         >
-          <Bolt />
+          <Image src="/logo.svg" alt="Logo" height={45} width={45} />
           <p className="md:2xl px-2 font-sans text-3xl font-semibold">
             Next Ecommerce
           </p>
