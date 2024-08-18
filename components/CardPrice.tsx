@@ -3,13 +3,16 @@ import { FormatMoney } from "@/utils/FormatMoney";
 const CardPrice = ({
   price,
   discount,
+  quantity,
 }: {
   price: number;
   discount: number | null;
+  quantity?: number;
 }) => {
   if (!discount) {
     return (
       <>
+        {quantity}
         <p>{FormatMoney(price)}</p>
       </>
     );

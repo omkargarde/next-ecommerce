@@ -1,6 +1,7 @@
 "use client";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
+import CartProductCard from "@/components/CartProductCart";
 import { couponCode } from "@/mock/products";
 import useCartStore from "@/store/cart";
 import { FormatMoney } from "@/utils/FormatMoney";
@@ -48,12 +49,15 @@ const CartPage = () => {
   }
 
   return (
-    <div className="mx-auto flex w-full flex-col-reverse gap-2 md:w-4/5 md:select-none md:flex-row md:items-start md:justify-between">
-      <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
-        {cartItems?.map((item) => <Card key={item.id} product={item} />)}
+    <div className="mx-auto flex w-full flex-col-reverse gap-2 lg:select-none lg:flex-row lg:items-start lg:justify-between lg:p-4">
+      {/* <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3"> */}
+      <div className="flex-1 gap-4">
+        {cartItems?.map((item) => (
+          <CartProductCard key={item.id} product={item} />
+        ))}
       </div>
 
-      <div className="m-4 mt-8 flex-none rounded-md bg-stone-100 p-4 text-start shadow-lg md:sticky md:top-4 md:w-80">
+      <div className="m-4 flex-none rounded-md bg-stone-100 p-4 text-start shadow-lg md:top-4 lg:sticky lg:w-80">
         <p>number items in cart is {totalCartQuantity}</p>
         <p>your total is {FormatMoney(cartTotal)}</p>
         <p>
