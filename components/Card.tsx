@@ -3,8 +3,6 @@ import useCartStore from "@/store/cart";
 import { MockProductType } from "@/types/ProductType";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Button from "./Button";
 import CardPrice from "./CardPrice";
@@ -19,7 +17,6 @@ const Card = (props: { product: MockProductType }) => {
     removeItemFromCart,
     cartItems,
   } = useCartStore();
-  const pathname = usePathname();
 
   function handleAddToCart(): void {
     addItemToCart(product);
@@ -53,14 +50,14 @@ const Card = (props: { product: MockProductType }) => {
         <p className="text-base text-gray-700">{product.name}</p>
         <CardPrice price={product.price} discount={product.discountPrice} />
       </div>
-      {pathname !== "/cart" && (
+      {!cartItems.find((item) => item.id === product.id)?.quantity && (
         <div className="flex justify-end pb-4 pr-2">
           <Button onClick={handleAddToCart}>Add to Cart</Button>
         </div>
       )}
-      {pathname === "/cart" && (
+      {cartItems.find((item) => item.id === product.id)?.quantity && (
         <div>
-          <div className="flex items-center justify-center gap-4 px-2 pb-4">
+          <div className="flex items-center justify-end gap-4 px-2 pb-4 align-middle">
             <Button onClick={HandleDecreaseQuantity}>
               <Minus />
             </Button>
@@ -70,14 +67,6 @@ const Card = (props: { product: MockProductType }) => {
             <Button onClick={HandleIncreaseQuantity}>
               <Plus />
             </Button>
-          </div>
-          <div className="flex items-center justify-center gap-4 px-2 pb-4">
-            <button
-              className="flex rounded-full bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
-              onClick={HandleDeleteItem}
-            >
-              Remove
-            </button>
           </div>
         </div>
       )}
