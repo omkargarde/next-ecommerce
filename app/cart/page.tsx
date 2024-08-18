@@ -1,6 +1,5 @@
 "use client";
 import Button from "@/components/Button";
-import Card from "@/components/Card";
 import CartProductCard from "@/components/CartProductCart";
 import { couponCode } from "@/mock/products";
 import useCartStore from "@/store/cart";
@@ -10,7 +9,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const CartPage = () => {
-  const { cartItems, totalCartQuantity } = useCartStore();
+  const { cartItems, totalCartQuantity, clearCart } = useCartStore();
   const [cartTotal, setCartTotal] = useState(0);
 
   useEffect(() => {
@@ -50,7 +49,6 @@ const CartPage = () => {
 
   return (
     <div className="mx-auto flex w-full flex-col-reverse gap-2 lg:select-none lg:flex-row lg:items-start lg:justify-between lg:p-4">
-      {/* <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3"> */}
       <div className="flex-1 gap-4">
         {cartItems?.map((item) => (
           <CartProductCard key={item.id} product={item} />
@@ -76,12 +74,18 @@ const CartPage = () => {
             </div>
           </form>
         </p>
-        <p className="pt-2">
+        <p className="flex justify-between pt-2">
           <Link href="/checkout">
-            <Button>Checkout</Button>
-            <p>coupon code is 10KaDum</p>
+            <Button onClick={clearCart}>Checkout</Button>
           </Link>
+          <button
+            className="hover:bg-red-70 rounded-full bg-red-500 px-4 py-2 font-bold text-white"
+            onClick={clearCart}
+          >
+            Clear cart
+          </button>
         </p>
+        <p className="text-stone-400">coupon code is 10KaDum</p>
       </div>
     </div>
   );
