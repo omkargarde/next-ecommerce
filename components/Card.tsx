@@ -1,7 +1,7 @@
 "use client";
 import useCartStore from "@/store/cart";
 import { MockProductType } from "@/types/ProductType";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -12,8 +12,13 @@ import CardPrice from "./CardPrice";
 const Card = (props: { product: MockProductType }) => {
   const product = props.product;
 
-  const { addItemToCart, increaseQuantity, decreaseQuantity, cartItems } =
-    useCartStore();
+  const {
+    addItemToCart,
+    increaseQuantity,
+    decreaseQuantity,
+    removeItemFromCart,
+    cartItems,
+  } = useCartStore();
   const pathname = usePathname();
 
   function handleAddToCart(): void {
@@ -29,8 +34,13 @@ const Card = (props: { product: MockProductType }) => {
     toast.success("Decreased the product's quantity");
   }
 
+  function HandleDeleteItem() {
+    removeItemFromCart(product.id);
+    toast.success("Removed the product from cart");
+  }
+
   return (
-    <div className="m-4 max-w-sm overflow-hidden rounded shadow-lg">
+    <div className="m-4 overflow-hidden rounded shadow-lg">
       <Image
         className="w-full"
         src={product.image}
@@ -49,16 +59,26 @@ const Card = (props: { product: MockProductType }) => {
         </div>
       )}
       {pathname === "/cart" && (
-        <div className="flex items-center justify-center gap-4 px-2 pb-4">
-          <Button onClick={HandleDecreaseQuantity}>
-            <Minus />
-          </Button>
-          <div>
-            {cartItems.find((item) => item.id === product.id)?.quantity}
+        <div>
+          <div className="flex items-center justify-center gap-4 px-2 pb-4">
+            <Button onClick={HandleDecreaseQuantity}>
+              <Minus />
+            </Button>
+            <div>
+              {cartItems.find((item) => item.id === product.id)?.quantity}
+            </div>
+            <Button onClick={HandleIncreaseQuantity}>
+              <Plus />
+            </Button>
           </div>
-          <Button onClick={HandleIncreaseQuantity}>
-            <Plus />
-          </Button>
+          <div className="flex items-center justify-center gap-4 px-2 pb-4">
+            <button
+              className="flex rounded-full bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
+              onClick={HandleDeleteItem}
+            >
+              Remove
+            </button>
+          </div>
         </div>
       )}
     </div>

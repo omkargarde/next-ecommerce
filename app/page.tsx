@@ -5,7 +5,7 @@ export default function Home() {
   const products = mock_products;
   return (
     <main className="flex items-center justify-center">
-      <div className="my-4 grid md:w-4/5 md:grid-cols-3">
+      <div className="grid w-full grid-cols-1 gap-2 md:w-4/5 md:grid-cols-3">
         {products.map((product) => {
           return (
             <div key={product.id}>
