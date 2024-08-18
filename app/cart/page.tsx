@@ -48,12 +48,12 @@ const CartPage = () => {
   }
 
   return (
-    <div className="mx-auto flex w-full flex-col-reverse items-center gap-2 md:w-4/5 md:select-none md:flex-row md:items-start md:justify-between">
-      <div className="my-4 grid flex-1 grid-cols-1 md:grid-cols-3">
+    <div className="mx-auto flex w-full flex-col-reverse gap-2 md:w-4/5 md:select-none md:flex-row md:items-start md:justify-between">
+      <div className="grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
         {cartItems?.map((item) => <Card key={item.id} product={item} />)}
       </div>
 
-      <div className="mt-6 w-80 flex-none rounded-md p-4 text-start shadow-lg md:sticky md:top-4">
+      <div className="m-4 mt-8 flex-none rounded-md bg-stone-100 p-4 text-start shadow-lg md:sticky md:top-4 md:w-80">
         <p>number items in cart is {totalCartQuantity}</p>
         <p>your total is {FormatMoney(cartTotal)}</p>
         <p>

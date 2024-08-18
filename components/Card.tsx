@@ -40,7 +40,7 @@ const Card = (props: { product: MockProductType }) => {
   }
 
   return (
-    <div className="m-4 overflow-hidden rounded shadow-lg">
+    <div className="m-4 overflow-hidden rounded bg-stone-100 shadow-lg">
       <Image
         className="w-full"
         src={product.image}
