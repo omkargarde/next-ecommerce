@@ -4,6 +4,7 @@ import CartProductCard from "@/components/CartProductCart";
 import { couponCode } from "@/mock/products";
 import useCartStore from "@/store/cart";
 import { FormatMoney } from "@/utils/FormatMoney";
+import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -12,6 +13,18 @@ const CartPage = () => {
   const { cartItems, totalCartQuantity, clearCart } = useCartStore();
   const [cartTotal, setCartTotal] = useState(0);
   const [discountAmount, setDiscountAmount] = useState(0);
+
+  function handleCoupon(formData: any) {
+    const data: string = formData.get("coupon");
+    const coupon: string = data.toLowerCase();
+    if (coupon === couponCode) {
+      setCartTotal(cartTotal - cartTotal * (10 / 100));
+      setDiscountAmount(cartTotal * (10 / 100));
+    } else {
+      toast.error("Coupon invalid");
+    }
+  }
+
   useEffect(() => {
     let totalPrice = 0;
     cartItems.forEach((item) => {
@@ -26,17 +39,6 @@ const CartPage = () => {
     });
     setCartTotal(totalPrice);
   }, [cartItems]);
-
-  function handleCoupon(formData: any) {
-    const data: string = formData.get("coupon");
-    const coupon: string = data.toLowerCase();
-    if (coupon === couponCode) {
-      setCartTotal(cartTotal - cartTotal * (10 / 100));
-      setDiscountAmount(cartTotal * (10 / 100));
-    } else {
-      toast.error("Coupon invalid");
-    }
-  }
 
   if (cartItems && cartItems.length < 1) {
     return (
