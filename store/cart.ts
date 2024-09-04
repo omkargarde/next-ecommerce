@@ -8,14 +8,12 @@ type CartState = {
   // state
   cartItems: CartProductType[];
   totalCartQuantity: number;
-  totalCartPrice: number;
   // actions
   addItemToCart: (item: MockProductType) => void;
   increaseQuantity: (productId: number) => void;
   decreaseQuantity: (productId: number) => void;
   removeItemFromCart: (productId: number) => void;
   clearCart: () => void;
-  getCartTotal: () => void;
 };
 const useCartStore = create<CartState>()(
   persist(
@@ -88,9 +86,6 @@ const useCartStore = create<CartState>()(
       clearCart: () => {
         set({ cartItems: [] });
         set({ totalCartQuantity: 0 });
-      },
-      getCartTotal: () => {
-        
       },
     }),
     { name: "CartStore" },
