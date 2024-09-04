@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import CartProductCard from "@/components/CartProductCart";
 import { couponCode } from "@/mock/products";
 import useCartStore from "@/store/cart";
+import { CartProductType, MockProductType } from "@/types/ProductType";
 import { FormatMoney } from "@/utils/FormatMoney";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -14,7 +15,7 @@ const CartPage = () => {
   const [discountAmount, setDiscountAmount] = useState(0);
   useEffect(() => {
     let totalPrice = 0;
-    cartItems.forEach((item) => {
+    cartItems.forEach((item: CartProductType) => {
       let price = 0;
 
       if (!!item.discountPrice) {
@@ -52,7 +53,7 @@ const CartPage = () => {
   return (
     <div className="mx-auto flex w-full flex-col-reverse gap-2 lg:select-none lg:flex-row lg:items-start lg:justify-between lg:p-4">
       <div className="flex-1 gap-4">
-        {cartItems?.map((item) => (
+        {cartItems?.map((item: MockProductType) => (
           <CartProductCard key={item.id} product={item} />
         ))}
       </div>
