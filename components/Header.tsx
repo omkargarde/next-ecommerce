@@ -2,6 +2,7 @@ import { Bolt } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import CartCount from "./CartCount";
+import LoginButton from "./LoginButton";
 
 const Header = () => {
   return (
@@ -19,6 +20,7 @@ const Header = () => {
         <nav className="flex items-center justify-center align-middle">
           <CartCount />
         </nav>
+        <LoginButton />
       </div>
     </header>
   );
