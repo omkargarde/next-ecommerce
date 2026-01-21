@@ -37,7 +37,7 @@
     "tailwindcss": "^3.4.10",
     "typescript": "^5.5.4",
     "vercel": "^36.0.0",
-    "wrangler": "^3.74.0"
+    "wrangler": "^3.114.17"
   },
   "packageManager": "pnpm@9.7.1+sha1.b0ae55d11432e1af341998848fdc219a62f7623a"
 }
